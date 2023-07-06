@@ -38,7 +38,8 @@ def getLyricsArray(name):
     for song in songs:
         lyrics_array.append(song["url"])
     return lyrics_array
-     
+    
+
 def scrapeLyricText(name):
     links = getLyricsArray(name)
     song_lyrics = []
@@ -47,11 +48,13 @@ def scrapeLyricText(name):
         soup = BeautifulSoup(page.content, 'html.parser')
 
         lyrics_div = soup.find(class_="lyrics")
-        anchor_tags = lyrics_div.find_all('a')
+        anchor_tags = lyrics_div.find_all("a")
+        anchor_tags_anchor = [a_anchor.parent.parent.parent for a_anchor in anchor_tags]
         current_lyrics = []
-        for anchor in anchor_tags:
-            text = anchor.text
-            current_lyrics.append(text)
+        for anchor in anchor_tags_anchor:
+            if len(anchor.text) > 0 and anchor.text[0] != "[":
+              text = anchor.text.replace("\n", " NEWLINE ")
+              current_lyrics.append(text)
         song_lyrics.append(current_lyrics)
     return song_lyrics
 

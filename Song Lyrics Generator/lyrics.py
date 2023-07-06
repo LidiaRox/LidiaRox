@@ -49,16 +49,16 @@ def scrapeLyricText(name):
         soup = BeautifulSoup(page.content, 'html.parser')
 
         lyrics_div = soup.find(class_="lyrics")
-        anchor_tags = lyrics_div.find_all("a")
-        anchor_tags_anchor = [a_anchor.parent.parent.parent for a_anchor in anchor_tags]
-        current_lyrics = []
-        for anchor in anchor_tags_anchor:
-            if len(anchor.text) > 0 and anchor.text[0] != "[":
-              text = anchor.text.replace("\n", " ")
-              current_lyrics.append(text)
-        song_lyrics.append(current_lyrics)
+        if lyrics_div is not None:
+           lyrics_soup=BeautifulSoup(str(lyrics_div), 'html.parser')
+           anchor_tags = lyrics_soup.find_all('a')
+           current_lyrics = []
+           for anchor in anchor_tags:
+                text = anchor.text
+                current_lyrics.append(text)
+           song_lyrics.append(current_lyrics)
     return song_lyrics
 
-print(scrapeLyricText("rihanna"))
+
 
 

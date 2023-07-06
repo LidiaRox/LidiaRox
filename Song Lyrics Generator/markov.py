@@ -20,7 +20,9 @@ class MarkovLyriscs:
                     self.chain[word] = [next_word]
 
     def generateLyrics(self, length=500):    
-        n = len(self.chain)        
+        n = len(self.chain)
+        print(n)
+        print(self.chain)        
 
         start_index = randint(0, n-1)
         keys = list(self.chain.keys())
@@ -42,7 +44,4 @@ class MarkovLyriscs:
         return lyrics
                                         
                                         
-data = ["I am Lidia", "I am an engineer", "I like to code"]
-m = MarkovLyriscs()
-m.populateMarkovChain(data)
-print(m.generateLyrics())
+
